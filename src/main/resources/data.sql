@@ -5,4 +5,5 @@ CREATE TABLE USERTB (
 	PRIMARY KEY(USERNAME)
 );
 
-INSERT INTO USERTB (USERNAME, PASSWORD, NAME) VALUES ('Miguel','pass', 'Miguel Ángel');
+/*Username: Miguel, password: pass*/
+INSERT INTO USERTB (USERNAME, PASSWORD, NAME) VALUES ('Miguel','$2a$10$2sZ/K/d9ZRMxqiQwfUJXoefMZyGZVOVgrnKGCR2NwmQN3FEYab3PW', '');

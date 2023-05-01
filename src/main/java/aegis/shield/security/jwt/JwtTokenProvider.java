@@ -4,6 +4,7 @@
 package aegis.shield.security.jwt;
 
 import java.security.SignatureException;
+import java.util.Base64;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -45,12 +46,14 @@ public class JwtTokenProvider {
 	private int jwtExpirationMs;
 
 	public String generateJwtToken(Authentication authentication) {
-
+		
 		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-		return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
+		return Jwts.builder().setSubject((userPrincipal.getUsername()))
+				.setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+				.signWith(SignatureAlgorithm.HS512, jwtSecret)
+				.compact();
 	}
 
 	public String getUserNameFromJwtToken(String token) {

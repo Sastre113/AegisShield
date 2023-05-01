@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * @author Miguel Á. Sastre <sastre113@gmail.com>
  * @version 2:47:44 - 01/05/2023
-
+ * 
  * Implementación de la interfaz {@link org.springframework.security.web.AuthenticationEntryPoint} que maneja 
  * 	las excepciones de autenticación en el proceso de autenticación de Spring Security.
  *
@@ -40,8 +40,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 	private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
 	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authException) throws IOException, ServletException {
+	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 		logger.error("Unauthorized error: {}", authException.getMessage());
 
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);

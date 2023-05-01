@@ -1,3 +1,9 @@
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        
 spring:
   cloud:
     loadbalancer:
@@ -30,5 +36,5 @@ spring:
 # App Properties
 aegis:
   shield:
-    jwtSecret: aegisShieldSecretKey
+    jwtSecret: aegisSecretKey
     jwtExpirationMs: 86400000

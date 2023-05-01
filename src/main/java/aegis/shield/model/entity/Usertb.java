@@ -5,6 +5,8 @@ package aegis.shield.model.entity;
 
 
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,12 +19,13 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "USERTB")
-public class Usertb {
+public class Usertb implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "USERNAME", nullable = false, length = 20)
 	private String username;
-
 	@Column(name = "PASSWORD", nullable = false, length = 500)
 	private String password;
 	@Column(name = "NAME", nullable = false, length = 100)
