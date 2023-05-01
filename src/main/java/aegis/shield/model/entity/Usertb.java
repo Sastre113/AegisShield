@@ -6,11 +6,17 @@ package aegis.shield.model.entity;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
 
 /**
  * @author Miguel Á. Sastre <sastre113@gmail.com>
@@ -30,6 +36,14 @@ public class Usertb implements Serializable {
 	private String password;
 	@Column(name = "NAME", nullable = false, length = 100)
 	private String name;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "USER_ROL",
+        joinColumns = @JoinColumn(name = "USERNAME"),
+        inverseJoinColumns = @JoinColumn(name = "ID_ROL")
+    )
+	private Set<Roltb> listRol = new HashSet<>();
 
 	public String getUsername() {
 		return username;
@@ -53,5 +67,13 @@ public class Usertb implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Roltb> getListRol() {
+		return listRol;
+	}
+
+	public void setListRol(Set<Roltb> listRol) {
+		this.listRol = listRol;
 	}
 }

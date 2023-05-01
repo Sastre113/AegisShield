@@ -4,10 +4,13 @@
 package aegis.shield.model.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -26,6 +29,9 @@ public class Roltb implements Serializable {
 	private String idRol;
 	@Column(name = "ROL", nullable = false, length = 100)
 	private String rol;
+	
+	@ManyToMany(mappedBy = "listRol")
+	private Set<Usertb> listUser = new HashSet<>();
 
 	public String getIdRol() {
 		return idRol;
@@ -41,5 +47,13 @@ public class Roltb implements Serializable {
 
 	public void setRol(String rol) {
 		this.rol = rol;
+	}
+
+	public Set<Usertb> getListUser() {
+		return listUser;
+	}
+
+	public void setListUser(Set<Usertb> listUser) {
+		this.listUser = listUser;
 	}
 }

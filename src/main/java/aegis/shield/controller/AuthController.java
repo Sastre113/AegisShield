@@ -3,11 +3,6 @@
  */
 package aegis.shield.controller;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,19 +33,18 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
+	
 	private AuthenticationManager authenticationManager;
 	private UserRepository userRepository;
-	private PasswordEncoder encoder;
-	private JwtTokenProvider jwtUtils;
+	private PasswordEncoder passwordEncoder;
+	private JwtTokenProvider jwtTokenProvider;
 	
 	public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
-			PasswordEncoder encoder, JwtTokenProvider jwtUtils) {
-		super();
+			PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
 		this.authenticationManager = authenticationManager;
 		this.userRepository = userRepository;
-		this.encoder = encoder;
-		this.jwtUtils = jwtUtils;
+		this.passwordEncoder = passwordEncoder;
+		this.jwtTokenProvider = jwtTokenProvider;
 	}
 
 
@@ -60,7 +54,7 @@ public class AuthController {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
+		String jwt = jwtTokenProvider.generateJwtToken(authentication);
 
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername()));
@@ -76,7 +70,7 @@ public class AuthController {
 		// Create new user's account
 		Usertb user = new Usertb();
 		user.setUsername(signUpRequest.getUsername());
-		user.setPassword(this.encoder.encode(signUpRequest.getPassword()));
+		user.setPassword(this.passwordEncoder.encode(signUpRequest.getPassword()));
 		this.userRepository.save(user);
 		return ResponseEntity.ok(null);
 	}
