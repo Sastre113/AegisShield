@@ -3,6 +3,9 @@
  */
 package aegis.shield.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import aegis.shield.mapper.UserMapper;
@@ -39,6 +42,15 @@ public class UserService implements IUserService {
 	public UserDTO getUser(String idUser) {
 		Usertb userEntity = this.userRepository.findById(idUser).orElseThrow();
 		return UserMapper.INSTANCE.toDTO(userEntity);
+	}
+	
+	@Override
+	public List<UserDTO> getAllUser() {
+		List<Usertb> listUserEntity = this.userRepository.findAll();
+		List<UserDTO> listUserDTO = new ArrayList<>();
+		listUserEntity.forEach(userEntity -> listUserDTO.add(UserMapper.INSTANCE.toDTO(userEntity)));
+		
+		return listUserDTO;
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class Usertb implements Serializable {
 	
 	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-        name = "USER_ROL",
+        name = "USER_ROL_TB",
         joinColumns = @JoinColumn(name = "USERNAME"),
         inverseJoinColumns = @JoinColumn(name = "ID_ROL")
     )

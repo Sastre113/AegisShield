@@ -3,6 +3,7 @@
  */
 package aegis.shield.mapper;
 
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -16,17 +17,19 @@ import aegis.shield.model.entity.Usertb;
  * @version 23:55:43 - 30/04/2023
  *
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = RolMapper.class)
 public interface UserMapper {
 
 	public UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-	
+
 	@Mapping(source = "username", target = "username")
 	@Mapping(source = "name", target = "name")
+	@Mapping(source = "listRol", target = "listRol")
 	public UserDTO toDTO(Usertb userEntity);
-	
+
 	@Mapping(source = "username", target = "username")
 	@Mapping(source = "name", target = "name")
+	@Mapping(source = "listRol", target = "listRol")
 	public Usertb toEntity(UserDTO userDTO);
 
 	@Mapping(source = "username", target = "username")

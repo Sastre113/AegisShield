@@ -3,6 +3,8 @@
  */
 package aegis.shield.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +41,11 @@ public class UserController {
 	@GetMapping(value = "/{idUser}")
 	public UserDTO getUser(@PathVariable String idUser) {
 		return this.userService.getUser(idUser);
+	}
+	
+	@GetMapping(value = "")
+	public List<UserDTO> getAllUser() {
+		return this.userService.getAllUser();
 	}
 	
 	@DeleteMapping(value = "/{idUser}")

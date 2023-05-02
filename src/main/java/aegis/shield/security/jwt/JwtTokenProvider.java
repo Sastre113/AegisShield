@@ -3,8 +3,6 @@
  */
 package aegis.shield.security.jwt;
 
-import java.security.SignatureException;
-import java.util.Base64;
 import java.util.Date;
 
 import org.slf4j.Logger;
