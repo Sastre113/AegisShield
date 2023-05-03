@@ -14,7 +14,15 @@ public class UserDTO {
 
 	private String username;
 	private String name;
-	private Set<RolDTO> listRol;
+	private Set<RolDTO> setRol;
+
+	public Set<RolDTO> getSetRol() {
+		return setRol;
+	}
+
+	public void setSetRol(Set<RolDTO> setRol) {
+		this.setRol = setRol;
+	}
 
 	public String getUsername() {
 		return username;
@@ -32,11 +40,4 @@ public class UserDTO {
 		this.name = name;
 	}
 
-	public Set<RolDTO> getListRol() {
-		return listRol;
-	}
-
-	public void setListRol(Set<RolDTO> listRol) {
-		this.listRol = listRol;
-	}
 }

@@ -12,7 +12,7 @@ import aegis.shield.mapper.UserMapper;
 import aegis.shield.model.dto.user.RequestCreateUserDTO;
 import aegis.shield.model.dto.user.UserDTO;
 import aegis.shield.model.entity.Usertb;
-import aegis.shield.repository.UserRepository;
+import aegis.shield.repository.IUserRepository;
 import jakarta.transaction.Transactional;
 
 /**
@@ -24,9 +24,9 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class UserService implements IUserService {
 
-	private UserRepository userRepository;
+	private IUserRepository userRepository;
 	
-	public UserService(UserRepository userRepository) {
+	public UserService(IUserRepository userRepository) {
 		super();
 		this.userRepository = userRepository;
 	}

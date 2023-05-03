@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import aegis.shield.model.entity.Usertb;
-import aegis.shield.repository.UserRepository;
+import aegis.shield.repository.IUserRepository;
 
 /**
  * @author Miguel Á. Sastre <sastre113@gmail.com>
@@ -20,9 +20,9 @@ import aegis.shield.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
-	private UserRepository userRepository;
+	private IUserRepository userRepository;
 
-	public UserDetailsServiceImpl(UserRepository userRepository) {
+	public UserDetailsServiceImpl(IUserRepository userRepository) {
 		super();
 		this.userRepository = userRepository;
 	}

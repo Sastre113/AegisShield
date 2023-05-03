@@ -30,8 +30,8 @@ public class Roltb implements Serializable {
 	@Column(name = "ROL", nullable = false, length = 100)
 	private String rol;
 	
-	@ManyToMany(mappedBy = "listRol")
-	private Set<Usertb> listUser = new HashSet<>();
+	@ManyToMany(mappedBy = "setRol")
+	private Set<Usertb> setUser = new HashSet<>();
 
 	public String getIdRol() {
 		return idRol;
@@ -49,11 +49,11 @@ public class Roltb implements Serializable {
 		this.rol = rol;
 	}
 
-	public Set<Usertb> getListUser() {
-		return listUser;
+	public Set<Usertb> getSetUser() {
+		return setUser;
 	}
 
-	public void setListUser(Set<Usertb> listUser) {
-		this.listUser = listUser;
+	public void setSetUser(Set<Usertb> setUser) {
+		this.setUser = setUser;
 	}
 }

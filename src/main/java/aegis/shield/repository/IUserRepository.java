@@ -14,6 +14,6 @@ import aegis.shield.model.entity.Usertb;
  *
  */
 @Repository
-public interface UserRepository extends JpaRepository<Usertb, String> {
+public interface IUserRepository extends JpaRepository<Usertb, String> {
 
 }
