@@ -3,10 +3,13 @@
  */
 package aegis.shield.security.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,29 +31,23 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(String username, String password, String name) {
+	public UserDetailsImpl(String username, String password, Collection<? extends GrantedAuthority> authorities ) {
 	    this.username = username;
 	    this.password = password;
-	    this.name = name;
+	    this.authorities = authorities;
 	}
 
-	public static UserDetailsImpl build(Usertb user) {
-		/* Mi Usertb no tiene roles, así que no es necesario hacer esta parte
-		* List<GrantedAuthority> authorities = user.getRoles().stream()
-		* 		.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
-		*/
-	    return new UserDetailsImpl(
-	        user.getUsername(),
-	        user.getPassword(),
-	        user.getName()
-	    );
+	public static UserDetailsImpl build(Usertb userEntity) {
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		userEntity.getSetRol().forEach(rolEntity -> authorities.add(new SimpleGrantedAuthority(rolEntity.getRol())));
+
+		return new UserDetailsImpl(userEntity.getUsername(), userEntity.getPassword(), authorities);
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
-
 
 	@Override
 	public String getPassword() {

@@ -3,6 +3,8 @@
  */
 package aegis.shield.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import aegis.shield.model.entity.Roltb;
@@ -14,4 +16,5 @@ import aegis.shield.model.entity.Roltb;
  */
 public interface IRolRepository extends JpaRepository<Roltb, String> {
 
+	public Optional<Roltb> findByRol(String rol);
 }

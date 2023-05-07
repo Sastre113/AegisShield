@@ -5,11 +5,13 @@ package aegis.shield.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import aegis.shield.mapper.UserMapper;
 import aegis.shield.model.dto.user.RequestCreateUserDTO;
+import aegis.shield.model.dto.user.RolDTO;
 import aegis.shield.model.dto.user.UserDTO;
 import aegis.shield.model.entity.Usertb;
 import aegis.shield.repository.IUserRepository;
@@ -42,6 +44,12 @@ public class UserService implements IUserService {
 	public UserDTO getUser(String idUser) {
 		Usertb userEntity = this.userRepository.findById(idUser).orElseThrow();
 		return UserMapper.INSTANCE.toDTO(userEntity);
+	}
+	
+	@Override
+	public Set<RolDTO> getUserRol(String idUser) {
+		Usertb userEntity = this.userRepository.findById(idUser).orElseThrow();
+		return UserMapper.INSTANCE.mapToSetRolDTO(userEntity.getSetRol());	
 	}
 	
 	@Override

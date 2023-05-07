@@ -4,8 +4,10 @@
 package aegis.shield.service;
 
 import java.util.List;
+import java.util.Set;
 
 import aegis.shield.model.dto.user.RequestCreateUserDTO;
+import aegis.shield.model.dto.user.RolDTO;
 import aegis.shield.model.dto.user.UserDTO;
 
 /**
@@ -17,6 +19,8 @@ public interface IUserService {
 
 	public UserDTO createUser(RequestCreateUserDTO requestDTO);
 	public UserDTO getUser(String idUser);
+	public Set<RolDTO> getUserRol(String idUser);
 	public List<UserDTO> getAllUser();
 	public void deleteUser(String idUser);
+	
 }
