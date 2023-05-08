@@ -9,7 +9,10 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -32,6 +35,12 @@ public class Roltb implements Serializable {
 	
 	@ManyToMany(mappedBy = "setRol")
 	private Set<Usertb> setUser = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "ROLAUTHORITYTB"
+		,joinColumns = @JoinColumn(name = "ID_ROL")
+		,inverseJoinColumns = @JoinColumn(name = "ID_AUTHORITY"))
+	private Set<Authoritytb> setAuthority = new HashSet<>();
 
 	public String getIdRol() {
 		return idRol;
@@ -55,5 +64,13 @@ public class Roltb implements Serializable {
 
 	public void setSetUser(Set<Usertb> setUser) {
 		this.setUser = setUser;
+	}
+
+	public Set<Authoritytb> getSetAuthority() {
+		return setAuthority;
+	}
+
+	public void setSetAuthority(Set<Authoritytb> setAuthority) {
+		this.setAuthority = setAuthority;
 	}
 }

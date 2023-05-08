@@ -39,6 +39,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = "")
+	@PreAuthorize("hasRole('ADMIN')")
 	public UserDTO createUser(@RequestBody RequestCreateUserDTO requestDTO) {
 		return this.userService.createUser(requestDTO);
 	}
@@ -50,16 +51,18 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/{idUser}/rol")
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public Set<RolDTO> getUserDTO(@PathVariable String idUser) {
 		return this.userService.getUserRol(idUser);
 	}
 	
 	@GetMapping(value = "")
+	@Secured("ROLE_ADMIN")
 	public List<UserDTO> getAllUser() {
 		return this.userService.getAllUser();
 	}
 	
+	@Secured("ADMIN")
 	@DeleteMapping(value = "/{idUser}")
 	public void deleteUser(@PathVariable String idUser) {
 		this.userService.deleteUser(idUser);
