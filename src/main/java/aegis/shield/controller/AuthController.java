@@ -77,7 +77,7 @@ public class AuthController {
 		user.setPassword(this.passwordEncoder.encode(signUpRequest.getPassword()));
 		Set<Roltb> setRolEntity = new HashSet<>();
 		user.setSetRol(setRolEntity);
-		Roltb rolEntity =this.rolRepository.findByRol("USER")
+		Roltb rolEntity =this.rolRepository.findByRol("ROLE_USER")
 			.orElseThrow(() -> new RuntimeException("Role not found!"));
 		setRolEntity.add(rolEntity);
 		

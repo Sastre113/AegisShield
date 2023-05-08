@@ -44,7 +44,7 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/{idUser}")
-	@PreAuthorize("hasRole(USER)")
+	@PreAuthorize("hasRole('USER')")
 	public UserDTO getUser(@PathVariable String idUser) {
 		return this.userService.getUser(idUser);
 	}
