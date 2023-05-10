@@ -20,7 +20,6 @@ import aegis.shield.model.dto.user.RequestCreateUserDTO;
 import aegis.shield.model.dto.user.RolDTO;
 import aegis.shield.model.dto.user.UserDTO;
 import aegis.shield.service.IUserService;
-import jakarta.annotation.security.RolesAllowed;
 
 /**
  * @author Miguel Á. Sastre <sastre113@gmail.com>
@@ -29,6 +28,7 @@ import jakarta.annotation.security.RolesAllowed;
  */
 @RestController
 @RequestMapping("/user")
+@PreAuthorize("hasAnyRole('ADMIN')")
 public class UserController {
 
 	private IUserService userService;
@@ -68,4 +68,9 @@ public class UserController {
 		this.userService.deleteUser(idUser);
 	}
 	
+	@Secured("ADMIN")
+	@DeleteMapping(value = "")
+	public void throwException(@PathVariable String idUser) {
+		throw new RuntimeException("Es una prueba");
+	}
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import aegis.shield.event.historical.HistoricalRecordEventPublisher;
 import aegis.shield.mapper.UserMapper;
 import aegis.shield.model.dto.user.RequestCreateUserDTO;
 import aegis.shield.model.dto.user.RolDTO;
@@ -27,16 +28,19 @@ import jakarta.transaction.Transactional;
 public class UserService implements IUserService {
 
 	private IUserRepository userRepository;
+	private HistoricalRecordEventPublisher eventPublisher;
 	
-	public UserService(IUserRepository userRepository) {
+	public UserService(IUserRepository userRepository, HistoricalRecordEventPublisher eventPublisher) {
 		super();
 		this.userRepository = userRepository;
+		this.eventPublisher = eventPublisher;
 	}
 	
 	@Override
 	public UserDTO createUser(RequestCreateUserDTO requestDTO) {
 		Usertb userEntity = UserMapper.INSTANCE.toEntity(requestDTO);
 		this.userRepository.save(userEntity);
+		this.eventPublisher.postEvent("USERTB","CREATE", null);
 		return UserMapper.INSTANCE.toDTO(userEntity); 
 	}
 	
@@ -63,6 +67,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public void deleteUser(String idUser) {
+		this.eventPublisher.postEvent("USERTB","DELETE", this.userRepository.findById(idUser).orElseThrow());
 		this.userRepository.deleteById(idUser);
 	}
 }

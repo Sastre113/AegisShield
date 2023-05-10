@@ -66,15 +66,20 @@ public class WebSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors()
 				.and()
-				.csrf().disable().exceptionHandling()
-				.authenticationEntryPoint(unauthorizedHandler)
+					.csrf()
+						.disable()
+							.exceptionHandling()
+								.authenticationEntryPoint(unauthorizedHandler)
 				.and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+					.sessionManagement()
+						.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
-				.authorizeHttpRequests()
-					.requestMatchers("/api/auth/**").permitAll()
-					.requestMatchers("/api/test/**").permitAll()
-				.anyRequest().authenticated();
+					.authorizeHttpRequests()
+						.requestMatchers("/api/auth/**").permitAll()
+						.requestMatchers("/api/test/**").permitAll()
+				.and()
+					.authorizeHttpRequests()
+						.anyRequest().authenticated();
 					
 
 		http.authenticationProvider(this.authenticationProvider());
