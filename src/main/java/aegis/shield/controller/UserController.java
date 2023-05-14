@@ -28,7 +28,6 @@ import aegis.shield.service.IUserService;
  */
 @RestController
 @RequestMapping("/user")
-@PreAuthorize("hasAnyRole('ADMIN')")
 public class UserController {
 
 	private IUserService userService;
@@ -38,26 +37,26 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@PostMapping(value = "")
 	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping(value = "")
 	public UserDTO createUser(@RequestBody RequestCreateUserDTO requestDTO) {
 		return this.userService.createUser(requestDTO);
 	}
 	
-	@GetMapping(value = "/{idUser}")
 	@PreAuthorize("hasRole('USER')")
+	@GetMapping(value = "/{idUser}")
 	public UserDTO getUser(@PathVariable String idUser) {
 		return this.userService.getUser(idUser);
 	}
 	
-	@GetMapping(value = "/{idUser}/rol")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@GetMapping(value = "/{idUser}/rol")
 	public Set<RolDTO> getUserDTO(@PathVariable String idUser) {
 		return this.userService.getUserRol(idUser);
 	}
 	
-	@GetMapping(value = "")
 	@Secured("ROLE_ADMIN")
+	@GetMapping(value = "")
 	public List<UserDTO> getAllUser() {
 		return this.userService.getAllUser();
 	}
@@ -68,9 +67,9 @@ public class UserController {
 		this.userService.deleteUser(idUser);
 	}
 	
-	@Secured("ADMIN")
-	@DeleteMapping(value = "")
-	public void throwException(@PathVariable String idUser) {
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping(value = "/test/error")
+	public void throwException() {
 		throw new RuntimeException("Es una prueba");
 	}
 }
