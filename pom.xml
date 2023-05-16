@@ -76,6 +76,11 @@
 			<version>0.9.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>spear.of.ares</groupId>
+			<artifactId>SpearOfAres</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
