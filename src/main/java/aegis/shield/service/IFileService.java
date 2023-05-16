@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IFileService {
 
-	public Long getFileSize();
+	public double getFileSize();
 	public MultipartFile getMultipartFile(); 
 	
 }
