@@ -39,13 +39,13 @@ public class FileController {
 	
 	@GetMapping(value = "/multipartfile", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MultipartFile> getMultipartFile(HttpServletResponse response) {
-		// TODO Esta fallando
+
 		MultipartFile multipartFile = this.fileService.getMultipartFile();
-		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + multipartFile.getOriginalFilename() + "\"");
+		response.setContentType(MediaType.MULTIPART_FORM_DATA_VALUE);
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + multipartFile.getOriginalFilename() + ".txt\"");
         try {
 			response.getOutputStream().write(multipartFile.getBytes());
-			return ResponseEntity.ok(this.fileService.getMultipartFile());
+			return ResponseEntity.ok(multipartFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

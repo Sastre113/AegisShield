@@ -19,7 +19,7 @@ public class AegisFile implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final int DEPTH = 13;
 	private static final int MIN_NUMBER = 1000;
-	private static final int MAX_NUMBER = 5000;
+	private static final int MAX_NUMBER = 3000;
 	
 	private String name;
 	private Integer number;

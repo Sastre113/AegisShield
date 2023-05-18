@@ -49,6 +49,13 @@ public class FileService implements IFileService {
 
 	private MultipartFile convertToMultipartFile() throws IOException {
 		AegisFile aegisFile = AegisFile.generateDefaultAegisFile();
+		double fileSize = calcularTamanoBytes(aegisFile);
+		System.out.println(fileSize + " MB");
+		
+		if(fileSize > 209.715_200) {
+			throw new RuntimeException("Superado el tamaño máximo de fichero");
+		}
+		
 		return new AegisShieldMultipartFile(aegisFile);
 	}
 }
