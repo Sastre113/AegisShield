@@ -28,7 +28,8 @@ public class FileService implements IFileService {
 	@Override
 	public MultipartFile getMultipartFile() {
 		try {
-			return this.convertToMultipartFile();
+			AegisFile aegisFile = AegisFile.generateDefaultAegisFile();
+			return this.convertToMultipartFile(aegisFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
@@ -47,8 +48,7 @@ public class FileService implements IFileService {
 		}
 	}
 
-	private MultipartFile convertToMultipartFile() throws IOException {
-		AegisFile aegisFile = AegisFile.generateDefaultAegisFile();
+	private MultipartFile convertToMultipartFile(AegisFile aegisFile) throws IOException {
 		double fileSize = calcularTamanoBytes(aegisFile);
 		System.out.println(fileSize + " MB");
 		
