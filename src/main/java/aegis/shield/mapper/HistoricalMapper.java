@@ -25,6 +25,14 @@ public interface HistoricalMapper {
 	@Mapping(source = "tableName", target = "tableName")
 	@Mapping(source = "actionExecuted", target = "actionExecuted")
 	@Mapping(expression  = "java(historicalRecord.prevRecordToJson())", target = "prevRecord")
+	@Mapping(expression = "java(java.time.LocalDateTime.now())", target = "dateRecord")
 	public Historicaltb toCreate(IHistoricable historicalRecord);
 	
+	
+	@Mapping(expression  = "java(java.util.UUID.randomUUID().toString())", target = "idRecord")
+	@Mapping(source = "tableName", target = "tableName")
+	@Mapping(source = "actionExecuted", target = "actionExecuted")
+	@Mapping(source  = "prevRecord", target = "prevRecord")
+	@Mapping(expression = "java(java.time.LocalDateTime.now())", target = "dateRecord")
+	public Historicaltb toCreate(String tableName, String actionExecuted, String prevRecord);
 }

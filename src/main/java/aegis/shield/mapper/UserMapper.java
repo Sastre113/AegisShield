@@ -46,7 +46,10 @@ public interface UserMapper {
 	@Named("mapToSetRolDTO")
 	default Set<RolDTO> mapToSetRolDTO(Set<Roltb> setRolEntity){
 		Set<RolDTO> setRolDTO = new HashSet<>();
-		setRolEntity.forEach(rolEntity -> setRolDTO.add(RolMapper.INSTANCE.toDTO(rolEntity)));
+		
+		if(!setRolEntity.isEmpty()) {
+			setRolEntity.forEach(rolEntity -> setRolDTO.add(RolMapper.INSTANCE.toDTO(rolEntity)));			
+		}
 		
 		return setRolDTO;
 	}
@@ -54,7 +57,10 @@ public interface UserMapper {
 	@Named("mapToSetRolEntity")
 	default Set<Roltb> mapToSetRolEntity(Set<RolDTO> setRolDTO){
 		Set<Roltb> setRolEntity = new HashSet<>();
-		setRolDTO.forEach(rolDTO -> setRolEntity.add(RolMapper.INSTANCE.toEntity(rolDTO)));
+		
+		if(!setRolDTO.isEmpty()) {
+			setRolDTO.forEach(rolDTO -> setRolEntity.add(RolMapper.INSTANCE.toEntity(rolDTO)));			
+		}
 		
 		return setRolEntity;
 	}

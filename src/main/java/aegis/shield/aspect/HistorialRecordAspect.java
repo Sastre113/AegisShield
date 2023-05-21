@@ -8,6 +8,9 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import aegis.shield.mapper.HistoricalMapper;
 import aegis.shield.model.entity.Historicaltb;
 import aegis.shield.repository.IHistoricalRepository;
@@ -33,12 +36,17 @@ public class HistorialRecordAspect {
 
 		String accion = joinPoint.getSignature().getName();
 
-		Object objetoModificado = joinPoint.getArgs()[0];
-
-		System.out.println("Hola");
-
-		Historicaltb historicalEntity = HistoricalMapper.INSTANCE.toCreate(null);
+		Historicaltb historicalEntity = HistoricalMapper.INSTANCE.toCreate("USERTB" ,accion , this.objectToString(result));
 		this.historicalRepository.save(historicalEntity);
 	}
+	
+	private <T> String objectToString(T object) {
+		try {
+			return new ObjectMapper().writeValueAsString(object);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return "";
+		}
+    }
 
 }

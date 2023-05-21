@@ -4,11 +4,14 @@
 package aegis.shield.model.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 /**
  * @author Miguel Á. Sastre <sastre113@gmail.com>
@@ -30,6 +33,9 @@ public class Historicaltb implements Serializable {
 	private String actionExecuted;
 	@Column(name = "PREV_RECORD", length = 4000)
 	private String prevRecord;
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime dateRecord;
+	
 
 	public String getIdRecord() {
 		return idRecord;
@@ -61,5 +67,13 @@ public class Historicaltb implements Serializable {
 
 	public void setPrevRecord(String prevRecord) {
 		this.prevRecord = prevRecord;
+	}
+
+	public LocalDateTime getDateRecord() {
+		return dateRecord;
+	}
+
+	public void setDateRecord(LocalDateTime dateRecord) {
+		this.dateRecord = dateRecord;
 	}	
 }
