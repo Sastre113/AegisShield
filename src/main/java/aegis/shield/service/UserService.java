@@ -50,7 +50,7 @@ public class UserService implements IUserService {
 			.orElseThrow(() -> new RuntimeException("Role not found!"));
 		setRolEntity.add(rolEntity);
 		this.userRepository.save(userEntity);
-		this.eventPublisher.postEvent("USERTB","CREATE", null);
+		//this.eventPublisher.postEvent("USERTB","CREATE", null);
 		return UserMapper.INSTANCE.toDTO(userEntity); 
 	}
 	
@@ -80,7 +80,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public void deleteUser(String idUser) {
-		this.eventPublisher.postEvent("USERTB","DELETE", this.userRepository.findById(idUser).orElseThrow());
+		//this.eventPublisher.postEvent("USERTB","DELETE", this.userRepository.findById(idUser).orElseThrow());
 		this.userRepository.deleteById(idUser);
 	}
 }
