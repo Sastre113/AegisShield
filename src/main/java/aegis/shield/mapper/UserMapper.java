@@ -4,13 +4,17 @@
 package aegis.shield.mapper;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
+import aegis.shield.model.dto.testMapper.DatosEmpresaDTO;
+import aegis.shield.model.dto.testMapper.fakeEntity.JobFakeEntity;
 import aegis.shield.model.dto.user.RequestCreateUserDTO;
 import aegis.shield.model.dto.user.RolDTO;
 import aegis.shield.model.dto.user.UserDTO;
@@ -64,4 +68,13 @@ public interface UserMapper {
 		
 		return setRolEntity;
 	}
+	
+	default DatosEmpresaDTO mapDatosEmpresa(List<JobFakeEntity> jobs) {
+        DatosEmpresaDTO datosEmpresaDTO = new DatosEmpresaDTO();
+        List<String> puestos = jobs.stream()
+                .map(JobFakeEntity::getName)
+                .collect(Collectors.toList());
+        datosEmpresaDTO.setPuestos(puestos);
+        return datosEmpresaDTO;
+    }
 }
