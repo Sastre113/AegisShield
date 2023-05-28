@@ -15,7 +15,7 @@ import aegis.shield.model.dto.testMapper.baeldung.PersonDTO;
  * @version 22:54:06 - 27/05/2023
  *
  */
-@Mapper
+@Mapper()
 public interface PersonMapper {
     
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);

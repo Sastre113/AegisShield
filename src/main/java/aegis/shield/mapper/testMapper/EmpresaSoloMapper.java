@@ -6,6 +6,7 @@ package aegis.shield.mapper.testMapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -22,14 +23,14 @@ import aegis.shield.model.dto.testMapper.fakeEntity.JobFakeEntity;
  * @version 18:04:28 - 27/05/2023
  *
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface EmpresaSoloMapper {
     EmpresaSoloMapper INSTANCE = Mappers.getMapper(EmpresaSoloMapper.class);
     
     @Mapping(source = "name", target = "nombre")
     @Mapping(source = "addres", target = "datosEmpresa.direccion")
-    @Mapping(target = "empleados", source = "listEmployee", qualifiedByName = "mapEmployees")
-    @Mapping(target = "datosEmpresa.puestos", source = "job", qualifiedByName = "mapPuestos")
+    @Mapping(source = "job", target = "datosEmpresa.puestos", qualifiedByName = "mapPuestos")
+    @Mapping(source = "listEmployee", target = "empleados", qualifiedByName = "mapEmployees")
     EmpresaDTO toDTO(EmpresaFakeEntity empresa);
 
     @Mapping(source = "name", target = "nombre")
