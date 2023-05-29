@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import aegis.shield.repository.IRolRepository;
 import aegis.shield.repository.IUserRepository;
 import aegis.shield.security.jwt.JwtTokenProvider;
 import aegis.shield.security.service.UserDetailsImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 /**
@@ -63,7 +65,12 @@ public class AuthController {
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername()));
 	}
-
+	
+	@GetMapping("/validate-jwt")
+	public ResponseEntity<Boolean> validateJwt(HttpServletRequest request) {
+		String jwt = request.getHeader("Authorization").replace("Bearer", "");
+		return ResponseEntity.ok(this.jwtTokenProvider.validateJwtToken(jwt));
+	}
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
